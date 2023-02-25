@@ -1,9 +1,15 @@
 import { useState } from "react";
-import Square from "../square/Square";
+import BoradRow from "../board-row/BoardRow";
 
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState("X");
+
+  const boardRows = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
 
   const possibleLines = [
     [0, 1, 2],
@@ -57,57 +63,15 @@ function Board() {
 
   return (
     <>
-      <div className="board-row">
-        <Square
-          value={squares[0]}
-          onChangeValue={() => changeValue(0)}
-          disabled={isDisabled}
+      {boardRows.map((boardRow, index) => (
+        <BoradRow
+          key={index}
+          squares={squares}
+          columns={boardRow}
+          onSquareClick={changeValue}
+          isSquareDisabled={isDisabled}
         />
-        <Square
-          value={squares[1]}
-          onChangeValue={() => changeValue(1)}
-          disabled={isDisabled}
-        />
-        <Square
-          value={squares[2]}
-          onChangeValue={() => changeValue(2)}
-          disabled={isDisabled}
-        />
-      </div>
-      <div className="board-row">
-        <Square
-          value={squares[3]}
-          onChangeValue={() => changeValue(3)}
-          disabled={isDisabled}
-        />
-        <Square
-          value={squares[4]}
-          onChangeValue={() => changeValue(4)}
-          disabled={isDisabled}
-        />
-        <Square
-          value={squares[5]}
-          onChangeValue={() => changeValue(5)}
-          disabled={isDisabled}
-        />
-      </div>
-      <div className="board-row">
-        <Square
-          value={squares[6]}
-          onChangeValue={() => changeValue(6)}
-          disabled={isDisabled}
-        />
-        <Square
-          value={squares[7]}
-          onChangeValue={() => changeValue(7)}
-          disabled={isDisabled}
-        />
-        <Square
-          value={squares[8]}
-          onChangeValue={() => changeValue(8)}
-          disabled={isDisabled}
-        />
-      </div>
+      ))}
       {status && <h2> {status}</h2>}
       <button onClick={resetGame}>New game</button>
     </>

@@ -1,11 +1,15 @@
 import Square from "../square/Square";
 
-function BoradRow() {
+function BoradRow({ squares, columns, onSquareClick, isSquareDisabled }) {
   return (
     <div className="board-row">
-      <Square value={1} />
-      <Square value={2} />
-      <Square value={3} />
+      {columns.map((index) => (
+        <Square
+          value={squares[index]}
+          onChangeValue={() => onSquareClick(index)}
+          disabled={isSquareDisabled}
+        />
+      ))}
     </div>
   );
 }
